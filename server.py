@@ -98,7 +98,8 @@ def makeCall():
   #   resp.say("Congratulations! You have just made your first call! Good bye.")
   # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
   #   resp.dial(callerId=CALLER_NUMBER).number(to)
-  resp.dial(callerId="+13254408525").number("+91703955226")
+  resp.dial(callerId="+13254408525").number(to)
+  # resp.dial(callerId="+13254408525").number("+91703955226")
   # else:
   #   resp.dial(callerId=CALLER_ID).client(to)
   return str(resp)
