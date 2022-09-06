@@ -5,22 +5,26 @@ from twilio.jwt.access_token.grants import VoiceGrant
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse
 
-ACCOUNT_SID = 'AC***'
-API_KEY = 'SK***'
-API_KEY_SECRET = '***'
-PUSH_CREDENTIAL_SID = 'CR***'
-APP_SID = 'AP***'
+# ACCOUNT_SID = 'AC***'
+# API_KEY = 'SK***'
+# API_KEY_SECRET = '***'
+# PUSH_CREDENTIAL_SID = 'CR***'
+# APP_SID = 'AP***'
 
+ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+API_KEY = os.environ['TWILIO_API_KEY_SID']
+API_KEY_SECRET = os.environ['TWILIO_API_KEY_SECRET']
+APP_SID = os.environ['TWIML_APP_SID']
 """
 Use a valid Twilio number by adding to your account via https://www.twilio.com/console/phone-numbers/verified
 """
-CALLER_NUMBER = '1234567890'
+CALLER_NUMBER = '13254408525'
 
 """
 The caller id used when a client is dialed.
 """
 CALLER_ID = 'client:quick_start'
-IDENTITY = 'alice'
+IDENTITY = '9170395522326'
 
 
 app = Flask(__name__)
@@ -33,11 +37,11 @@ def token():
   account_sid = os.environ.get("ACCOUNT_SID", ACCOUNT_SID)
   api_key = os.environ.get("API_KEY", API_KEY)
   api_key_secret = os.environ.get("API_KEY_SECRET", API_KEY_SECRET)
-  push_credential_sid = os.environ.get("PUSH_CREDENTIAL_SID", PUSH_CREDENTIAL_SID)
+  # push_credential_sid = os.environ.get("PUSH_CREDENTIAL_SID", PUSH_CREDENTIAL_SID)
   app_sid = os.environ.get("APP_SID", APP_SID)
 
   grant = VoiceGrant(
-    push_credential_sid=push_credential_sid,
+    # push_credential_sid=push_credential_sid,
     outgoing_application_sid=app_sid
   )
 
@@ -69,13 +73,13 @@ def placeCall():
   client = Client(api_key, api_key_secret, account_sid)
   to = request.values.get("to")
   call = None
-
-  if to is None or len(to) == 0:
-    call = client.calls.create(url=request.url_root + 'incoming', to='client:' + IDENTITY, from_=CALLER_ID)
-  elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
-    call = client.calls.create(url=request.url_root + 'incoming', to=to, from_=CALLER_NUMBER)
-  else:
-    call = client.calls.create(url=request.url_root + 'incoming', to='client:' + to, from_=CALLER_ID)
+  client.calls.create(to="917039552326",from_="13254408525")
+  # if to is None or len(to) == 0:
+  #   call = client.calls.create(url=request.url_root + 'incoming', to='client:' + IDENTITY, from_=CALLER_ID)
+  # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
+  #   call = client.calls.create(url=request.url_root + 'incoming', to=to, from_=CALLER_NUMBER)
+  # else:
+  #   call = client.calls.create(url=request.url_root + 'incoming', to='client:' + to, from_=CALLER_ID)
   return str(call)
 
 """
@@ -90,12 +94,13 @@ def makeCall():
   resp = VoiceResponse()
   to = request.values.get("to")
 
-  if to is None or len(to) == 0:
-    resp.say("Congratulations! You have just made your first call! Good bye.")
-  elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
-    resp.dial(callerId=CALLER_NUMBER).number(to)
-  else:
-    resp.dial(callerId=CALLER_ID).client(to)
+  # if to is None or len(to) == 0:
+  #   resp.say("Congratulations! You have just made your first call! Good bye.")
+  # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
+  #   resp.dial(callerId=CALLER_NUMBER).number(to)
+  resp.dial(callerId="+13254408525").number("+91703955226")
+  # else:
+  #   resp.dial(callerId=CALLER_ID).client(to)
   return str(resp)
 
 @app.route('/', methods=['GET', 'POST'])
