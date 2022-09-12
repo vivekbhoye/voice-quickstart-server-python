@@ -24,7 +24,7 @@ Use a valid Twilio number by adding to your account via https://www.twilio.com/c
 The caller id used when a client is dialed.
 """
 # CALLER_ID = 'client:quick_start'
-# IDENTITY = '9170395522326'
+IDENTITY = '9170395522326'
 
 
 app = Flask(__name__)
@@ -47,8 +47,9 @@ def token():
   # to = request.values.get("to")
   identity = request.values.get("identity")
   # identity = request.values["identity"] 
-  print(identity)
+  # print(IDENTITY)
           # if request.values and request.values["identity"] else IDENTITY
+  # identity="917039552326"
   # token = AccessToken(account_sid, api_key, api_key_secret)
   token = AccessToken(account_sid, api_key, api_key_secret, identity=identity)
   token.add_grant(grant)
