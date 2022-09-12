@@ -46,6 +46,7 @@ def token():
   )
   # to = request.values.get("to")
   identity = request.values.get("identity")
+  print(identity)
   # identity = request.values["identity"] 
           # if request.values and request.values["identity"] else IDENTITY
   # token = AccessToken(account_sid, api_key, api_key_secret)
