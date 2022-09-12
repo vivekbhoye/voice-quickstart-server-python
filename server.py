@@ -50,9 +50,7 @@ def token():
           # if request.values and request.values["identity"] else IDENTITY
   # token = AccessToken(account_sid, api_key, api_key_secret)
   token = AccessToken(account_sid, api_key, api_key_secret, identity=identity)
-  # token.identity(identity)
   token.add_grant(grant)
-  # token.identity(identity)
 
   return token.to_jwt()
 
