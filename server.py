@@ -18,13 +18,13 @@ APP_SID = os.environ['TWIML_APP_SID']
 """
 Use a valid Twilio number by adding to your account via https://www.twilio.com/console/phone-numbers/verified
 """
-CALLER_NUMBER = '13254408525'
+# CALLER_NUMBER = '13254408525'
 
 """
 The caller id used when a client is dialed.
 """
-CALLER_ID = 'client:quick_start'
-IDENTITY = '9170395522326'
+# CALLER_ID = 'client:quick_start'
+# IDENTITY = '9170395522326'
 
 
 app = Flask(__name__)
