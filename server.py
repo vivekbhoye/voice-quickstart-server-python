@@ -45,8 +45,8 @@ def token():
     outgoing_application_sid=app_sid
   )
   # to = request.values.get("to")
-  # identity = request.values.get("identity")
-  identity = request.values["identity"] 
+  identity = request.values.get("identity")
+  # identity = request.values["identity"] 
   print(identity)
           # if request.values and request.values["identity"] else IDENTITY
   # token = AccessToken(account_sid, api_key, api_key_secret)
