@@ -45,8 +45,8 @@ def token():
     outgoing_application_sid=app_sid
   )
 
-  identity = request.values["identity"] \
-          if request.values and request.values["identity"] else IDENTITY
+  identity = request.values["identity"] 
+          # if request.values and request.values["identity"] else IDENTITY
   token = AccessToken(account_sid, api_key, api_key_secret, identity=identity)
   token.add_grant(grant)
 
@@ -72,8 +72,9 @@ def placeCall():
 
   client = Client(api_key, api_key_secret, account_sid)
   to = request.values.get("to")
+  callerId = request.values.get("from")
   call = None
-  client.calls.create(to="917039552326",from_="13254408525")
+  client.calls.create(to=to,from_=callerId)
   # if to is None or len(to) == 0:
   #   call = client.calls.create(url=request.url_root + 'incoming', to='client:' + IDENTITY, from_=CALLER_ID)
   # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
@@ -93,12 +94,13 @@ accessible and use `/makeCall` endpoint as the Voice Request Url in your TwiML A
 def makeCall():
   resp = VoiceResponse()
   to = request.values.get("to")
+  callerId = request.values.get("from")
 
   # if to is None or len(to) == 0:
   #   resp.say("Congratulations! You have just made your first call! Good bye.")
   # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
   #   resp.dial(callerId=CALLER_NUMBER).number(to)
-  resp.dial(callerId="+13254408525").number(to)
+  resp.dial(callerId).number(to)
   # resp.dial(callerId="+13254408525").number("+91703955226")
   # else:
   #   resp.dial(callerId=CALLER_ID).client(to)
