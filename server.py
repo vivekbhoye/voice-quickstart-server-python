@@ -46,6 +46,8 @@ def token():
   )
   # to = request.values.get("to")
   identity = request.values.get("identity")
+  print(request.headers)
+
   # identity = request.values["identity"] 
   # print(IDENTITY)
           # if request.values and request.values["identity"] else IDENTITY
