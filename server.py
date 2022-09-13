@@ -45,7 +45,8 @@ def token():
     outgoing_application_sid=app_sid
   )
   # to = request.values.get("to")
-  identity = request.values.get("identity")
+  # identity = request.values.get("identity")
+  identity=(request.headers["identity"])
   print(request.headers["identity"])
 
   # identity = request.values["identity"] 
