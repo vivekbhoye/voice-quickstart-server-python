@@ -5,6 +5,7 @@ from twilio.jwt.access_token.grants import VoiceGrant
 from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse
 
+
 # ACCOUNT_SID = 'AC***'
 # API_KEY = 'SK***'
 # API_KEY_SECRET = '***'
@@ -99,19 +100,34 @@ accessible and use `/makeCall` endpoint as the Voice Request Url in your TwiML A
 """
 @app.route('/makeCall', methods=['GET', 'POST'])
 def makeCall():
-  resp = VoiceResponse()
-  to = request.values.get("to")
-  callerId = "+" + request.values.get("from")
-  print("callerid ", callerId)
-  # if to is None or len(to) == 0:
-  #   resp.say("Congratulations! You have just made your first call! Good bye.")
-  # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
-  #   resp.dial(callerId=CALLER_NUMBER).number(to)
-  resp.dial(callerId).number(to)
-  # resp.dial(callerId="+13254408525").number("+91703955226")
-  # else:
-  #   resp.dial(callerId=CALLER_ID).client(to)
-  return str(resp)
+  # resp = VoiceResponse()
+  # to = request.values.get("to")
+  # callerId = "+" + request.values.get("from")
+  # print("callerid ", callerId)
+  # # if to is None or len(to) == 0:
+  # #   resp.say("Congratulations! You have just made your first call! Good bye.")
+  # # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
+  # #   resp.dial(callerId=CALLER_NUMBER).number(to)
+  # resp.dial(callerId).number(to)
+  # # resp.dial(callerId="+13254408525").number("+91703955226")
+  # # else:
+  # #   resp.dial(callerId=CALLER_ID).client(to)
+  # return str(resp)
+  """Returns TwiML instructions to Twilio's POST requests"""
+  response = VoiceResponse()
+  
+  # we get this 'From' and 'To' from javascript main.js - btnDial function - params
+  # record will be saved in twilio monitor logs 
+  # dial = response.dial(caller_id='+19086638750',)
+  dial = response.dial(caller_id=request.values.get("from"),record='record-from-ringing-dual')
+  # dial = response.dial(caller_id=request.POST['From'],record='record-from-ringing-dual')
+  # dial.number('+917039552326')
+  dial.number(request.values.get("to"))
+
+  return str(response)
+  # return HttpResponse(
+  #     str(response), content_type='application/xml; charset=utf-8'
+  # )
 
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
