@@ -102,7 +102,7 @@ def makeCall():
   resp = VoiceResponse()
   to = request.values.get("to")
   callerId = request.values.get("from")
-
+  print("callerid ", callerId)
   # if to is None or len(to) == 0:
   #   resp.say("Congratulations! You have just made your first call! Good bye.")
   # elif to[0] in "+1234567890" and (len(to) == 1 or to[1:].isdigit()):
